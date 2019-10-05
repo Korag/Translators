@@ -1,4 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-notifications/lib/notifications.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
