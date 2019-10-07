@@ -1,12 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText, FormFeedback, Container, Row, Col } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Alert, FormFeedback, Container, Row, Col } from 'reactstrap';
 import { NotificationManager } from 'react-notifications';
 
 import '../css/Style.css';
-
-const buttonStyle = {
-    margin: 'auto'
-}
 
 export class RegexValidationForm extends Component {
     static displayName = RegexValidationForm.name;
@@ -21,11 +17,11 @@ export class RegexValidationForm extends Component {
             lastName: "",
             date: "",
 
-            emailValidationError: null,
+            emailValidationError: [],
             passwordValidationError: [],
-            dateValidationError: null,
-            firstNameValidationError: null,
-            lastNameValidationError: null,
+            dateValidationError: [],
+            firstNameValidationError: [],
+            lastNameValidationError: [],
 
             emailIsValid: false,
             passwordIsValid: false,
@@ -43,10 +39,10 @@ export class RegexValidationForm extends Component {
     }
 
     validateEmail(e) {
-        let emailError = "";
-
         let validEmail = this.state.email.match(/^(([^<>()\[\]\\.,;:\s@.*"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+
         if (validEmail == null) {
+
             this.setState({
                 emailIsValid: false,
                 emailValidationError: "Wprowadzono adres email w niepoprawnym formacie."
@@ -55,48 +51,44 @@ export class RegexValidationForm extends Component {
         else {
             this.setState({
                 emailIsValid: true,
-                emailValidationError: null
+                emailValidationError: []
             });
         }
     }
 
     validateFirstName(e) {
-        let validFirstName = this.state.firstName.match(/^[\w'\-,.]*[^_!¡?÷?¿\/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/)
+        let validFirstName = this.state.firstName.match(/^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*$/)
         if (validFirstName == null) {
             this.setState({
                 firstNameIsValid: false,
-                firstNameValidationError: "Wprowadzono imię w niepoprawnym formacie. \n Imię musi ropoczynać się od wielkie litery"
+                firstNameValidationError: "Wprowadzono imię w niepoprawnym formacie."
             });
         }
         else {
             this.setState({
                 firstNameIsValid: true,
-                firstNameValidationError: null
+                firstNameValidationError: []
             });
         }
     }
 
     validateLastName(e) {
-        let validLastName = this.state.lastName.match(/^([a - zA - Z]{ 2, }\s[a - zA - z]{ 1, }'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/);
+        let validLastName = this.state.lastName.match(/^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*$/)
         if (validLastName == null) {
             this.setState({
                 lastNameIsValid: false,
-                lastNameValidationError: "Wprowadzono nazwisko w niepoprawnym formacie. \n Nazwisko musi ropoczynać się od wielkie litery"
+                lastNameValidationError: "Wprowadzono nazwisko w niepoprawnym formacie."
             });
         }
         else {
             this.setState({
                 lastNameIsValid: true,
-                lastNameValidationError: null
+                lastNameValidationError: []
             });
         }
     }
 
     validatePassword(e) {
-
-        this.setState({
-            passwordValidationError: []
-        });
 
         let passwordError = [];
 
@@ -139,7 +131,7 @@ export class RegexValidationForm extends Component {
     }
 
     validateDate(e) {
-        let validDate = this.state.date.match()
+        let validDate = this.state.date.match(/^Od\s([1-2]\d{3})\-([0]\d|[1][0-2])\-([[0-2]\d|[3][0-1])(?:(?:\s([0-1]\d|[2][0-3])\:([0-5]\d)(?::([0-5]\d))?)?)\sdo\s([1-2]\d{3})\-([0]\d|[1][0-2])\-([[0-2]\d|[3][0-1])(?:(?:\s([0-1]\d|[2][0-3])\:([0-5]\d)(?::([0-5]\d))?)?)$/)
         if (validDate == null) {
             this.setState({
                 dateIsValid: false,
@@ -149,7 +141,7 @@ export class RegexValidationForm extends Component {
         else {
             this.setState({
                 dateIsValid: true,
-                dateValidationError: null
+                dateValidationError: []
             });
         }
     }
@@ -184,7 +176,7 @@ export class RegexValidationForm extends Component {
 
                     <FormGroup className="formGroup">
                         <Label for="email">Adres email</Label>
-                        <Input name="email" id="emailId" invalid={(!this.state.emailIsValid && this.state.emailValidationError != null) ? true : false} valid={this.state.emailIsValid} onChange={e => this.changeValue(e)} value={this.state.email} onBlur={e => this.validateEmail(e)} />
+                        <Input name="email" id="emailId" invalid={(!this.state.emailIsValid && this.state.emailValidationError.length != 0) ? true : false} valid={this.state.emailIsValid} onChange={e => this.changeValue(e)} value={this.state.email} onBlur={e => this.validateEmail(e)} />
                         <FormFeedback>{this.state.emailValidationError}</FormFeedback>
                     </FormGroup>
 
@@ -192,7 +184,7 @@ export class RegexValidationForm extends Component {
                         <Col md={6}>
                             <FormGroup className="formGroup">
                                 <Label for="firstName">Imię</Label>
-                                <Input type="string" name="firstName" id="firstNameId" invalid={(!this.state.firstNameIsValid && this.state.firstNameValidationError != null) ? true : false} valid={this.state.firstNameIsValid} onChange={e => this.changeValue(e)} value={this.state.firstName} onBlur={e => this.validateFirstName(e)} />
+                                <Input type="string" name="firstName" id="firstNameId" invalid={(!this.state.firstNameIsValid && this.state.firstNameValidationError.length != 0) ? true : false} valid={this.state.firstNameIsValid} onChange={e => this.changeValue(e)} value={this.state.firstName} onBlur={e => this.validateFirstName(e)} />
                                 <FormFeedback>{this.state.firstNameValidationError}</FormFeedback>
                             </FormGroup>
                         </Col>
@@ -200,7 +192,7 @@ export class RegexValidationForm extends Component {
                         <Col md={6}>
                             <FormGroup className="formGroup">
                                 <Label for="lastName">Nazwisko</Label>
-                                <Input type="string" name="lastName" id="lastNameId" invalid={(!this.state.lastNameIsValid && this.state.lastNameValidationError != null) ? true : false} valid={this.state.lastNameIsValid} onChange={e => this.changeValue(e)} value={this.state.lastName} onBlur={e => this.validateLastName(e)} />
+                                <Input type="string" name="lastName" id="lastNameId" invalid={(!this.state.lastNameIsValid && this.state.lastNameValidationError.length != 0) ? true : false} valid={this.state.lastNameIsValid} onChange={e => this.changeValue(e)} value={this.state.lastName} onBlur={e => this.validateLastName(e)} />
                                 <FormFeedback>{this.state.lastNameValidationError}</FormFeedback>
                             </FormGroup>
                         </Col>
@@ -208,7 +200,10 @@ export class RegexValidationForm extends Component {
 
                     <FormGroup className="formGroup">
                         <Label for="date">Data rezerwacji</Label>
-                        <Input type="string" name="date" id="dateId" invalid={(!this.state.dateIsValid && this.state.dateValidationError != null) ? true : false} valid={this.state.dateIsValid} onChange={e => this.changeValue(e)} onChange={e => this.changeValue(e)} value={this.state.date} onBlur={e => this.validateDate(e)} />
+                        <Alert color="info" className="alertFormat">
+                            Od YYYY-MM-DD [HH:MM:SS] do YYYY-MM-DD [HH:MM:SS]
+                         </Alert>
+                        <Input type="string" name="date" id="dateId" invalid={(!this.state.dateIsValid && this.state.dateValidationError.length != 0) ? true : false} valid={this.state.dateIsValid} onChange={e => this.changeValue(e)} onChange={e => this.changeValue(e)} value={this.state.date} onBlur={e => this.validateDate(e)} />
                         <FormFeedback>{this.state.dateValidationError}</FormFeedback>
                     </FormGroup>
 

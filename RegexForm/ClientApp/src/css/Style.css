@@ -32,3 +32,8 @@
 label {
     color: #F1F1F1;
 }
+
+.alertFormat{
+    text-align:center;
+    font-size: 10px;
+}
