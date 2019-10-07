@@ -146,11 +146,11 @@ export class RegexValidationForm extends Component {
     render() {
         return (
             <Container>
-                <h1>Rezerwacja stolika</h1>
+                <h1 className="header">Rezerwacja stolika</h1>
 
-                <Form onSubmit={e => this.bookSeat(e)} onKeyPress={e => this.onKeyPress(e)}>
+                <Form onSubmit={e => this.bookSeat(e)} onKeyPress={e => this.onKeyPress(e)} className="form">
 
-                    <FormGroup>
+                    <FormGroup className="formGroup">
                         <Label for="email">Adres email</Label>
                         <Input name="email" id="emailId" invalid={(!this.state.emailIsValid && this.state.emailValidationError != null) ? true : false} valid={this.state.emailIsValid} onChange={e => this.changeValue(e)} value={this.state.email} onBlur={e => this.validateEmail(e)} />
                         <FormFeedback>{this.state.emailValidationError}</FormFeedback>
@@ -158,7 +158,7 @@ export class RegexValidationForm extends Component {
 
                     <Row form>
                         <Col md={6}>
-                            <FormGroup>
+                            <FormGroup className="formGroup">
                                 <Label for="firstName">Imię</Label>
                                 <Input type="string" name="firstName" id="firstNameId" invalid={(!this.state.firstNameIsValid && this.state.firstNameValidationError != null) ? true : false} valid={this.state.firstNameIsValid} onChange={e => this.changeValue(e)} value={this.state.firstName} onBlur={e => this.validateFirstName(e)} />
                                 <FormFeedback>{this.state.firstNameValidationError}</FormFeedback>
@@ -166,7 +166,7 @@ export class RegexValidationForm extends Component {
                         </Col>
 
                         <Col md={6}>
-                            <FormGroup>
+                            <FormGroup className="formGroup">
                                 <Label for="lastName">Nazwisko</Label>
                                 <Input type="string" name="lastName" id="lastNameId" invalid={(!this.state.lastNameIsValid && this.state.lastNameValidationError != null) ? true : false} valid={this.state.lastNameIsValid} onChange={e => this.changeValue(e)} value={this.state.lastName} onBlur={e => this.validateLastName(e)} />
                                 <FormFeedback>{this.state.lastNameValidationError}</FormFeedback>
@@ -174,7 +174,7 @@ export class RegexValidationForm extends Component {
                         </Col>
                     </Row>
 
-                    <FormGroup>
+                    <FormGroup className="formGroup">
                         <Label for="date">Data rezerwacji</Label>
                         <Input type="string" name="date" id="dateId" invalid={(!this.state.dateIsValid && this.state.dateValidationError != null) ? true : false} valid={this.state.dateIsValid} onChange={e => this.changeValue(e)} onChange={e => this.changeValue(e)} value={this.state.date} onBlur={e => this.validateDate(e)} />
                         <FormFeedback>{this.state.dateValidationError}</FormFeedback>
@@ -182,7 +182,7 @@ export class RegexValidationForm extends Component {
 
                     <Row form>
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
-                            <FormGroup>
+                            <FormGroup className="formGroup">
                                 <Label for="password">Hasło</Label>
                                 <Input type="password" name="password" id="passwordId" invalid={(!this.state.passwordIsValid && this.state.passwordValidationError != null) ? true : false} valid={this.state.passwordIsValid} onChange={e => this.changeValue(e)} value={this.state.password} onBlur={e => this.validatePassword(e)} />
                                 <FormFeedback>{this.state.passwordValidationError}</FormFeedback>
