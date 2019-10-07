@@ -22,7 +22,7 @@ export class RegexValidationForm extends Component {
             date: "",
 
             emailValidationError: null,
-            passwordValidationError: null,
+            passwordValidationError: [],
             dateValidationError: null,
             firstNameValidationError: null,
             lastNameValidationError: null,
@@ -43,7 +43,9 @@ export class RegexValidationForm extends Component {
     }
 
     validateEmail(e) {
-        let validEmail = this.state.email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+        let emailError = "";
+
+        let validEmail = this.state.email.match(/^(([^<>()\[\]\\.,;:\s@.*"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         if (validEmail == null) {
             this.setState({
                 emailIsValid: false,
@@ -59,11 +61,11 @@ export class RegexValidationForm extends Component {
     }
 
     validateFirstName(e) {
-        let validFirstName = this.state.firstName.match()
+        let validFirstName = this.state.firstName.match(/^[\w'\-,.]*[^_!¡?÷?¿\/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/)
         if (validFirstName == null) {
             this.setState({
                 firstNameIsValid: false,
-                firstNameValidationError: "Wprowadzono imię w niepoprawnym formacie."
+                firstNameValidationError: "Wprowadzono imię w niepoprawnym formacie. \n Imię musi ropoczynać się od wielkie litery"
             });
         }
         else {
@@ -75,11 +77,11 @@ export class RegexValidationForm extends Component {
     }
 
     validateLastName(e) {
-        let validLastName = this.state.lastName.match()
+        let validLastName = this.state.lastName.match(/^([a - zA - Z]{ 2, }\s[a - zA - z]{ 1, }'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/);
         if (validLastName == null) {
             this.setState({
                 lastNameIsValid: false,
-                lastNameValidationError: "Wprowadzono nazwisko w niepoprawnym formacie."
+                lastNameValidationError: "Wprowadzono nazwisko w niepoprawnym formacie. \n Nazwisko musi ropoczynać się od wielkie litery"
             });
         }
         else {
@@ -91,17 +93,47 @@ export class RegexValidationForm extends Component {
     }
 
     validatePassword(e) {
-        let validPassword = this.state.password.match()
-        if (validPassword == null) {
+
+        this.setState({
+            passwordValidationError: []
+        });
+
+        let passwordError = [];
+
+        let validPasswordLength = this.state.password.match(/^.{8,32}$/);
+
+        if (validPasswordLength == null) {
+            passwordError.push("Hasło musi mieć długość minimum 8 znaków. \n");
+        }
+
+        let validPasswordOneUpperCharacter = this.state.password.match(/(?=.*[A-Z])/)
+
+        if (validPasswordOneUpperCharacter == null) {
+            passwordError.push("Hasło musi zawierać co najmniej jedną dużą literę. \n");
+        }
+
+        let validPasswordOneDigit = this.state.password.match(/(?=.*\d)/)
+
+        if (validPasswordOneDigit == null) {
+            passwordError.push("Hasło musi zawierać co najmniej jedną małą literę. \n");
+        }
+
+        let validPasswordOneSpecialCharacter = this.state.password.match(/(?=.*[\!\@\#\$\%\^\&\*\(\)\_\+\~\`\'\;\.\,\<\>\[\]\\\|\=\-])/)
+
+        if (validPasswordOneSpecialCharacter == null) {
+            passwordError.push("Hasło musi zawierać co najmniej jeden znak specjalny. \n");
+        }
+
+        if (validPasswordLength == null || validPasswordOneUpperCharacter == null || validPasswordOneDigit == null || validPasswordOneSpecialCharacter == null) {
             this.setState({
                 passwordIsValid: false,
-                passwordValidationError: "Wprowadzono hasło w niepoprawnym formacie."
+                passwordValidationError: passwordError
             });
         }
         else {
             this.setState({
                 passwordIsValid: true,
-                passwordValidationError: null
+                passwordValidationError: []
             });
         }
     }
@@ -184,8 +216,12 @@ export class RegexValidationForm extends Component {
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <FormGroup className="formGroup">
                                 <Label for="password">Hasło</Label>
-                                <Input type="password" name="password" id="passwordId" invalid={(!this.state.passwordIsValid && this.state.passwordValidationError != null) ? true : false} valid={this.state.passwordIsValid} onChange={e => this.changeValue(e)} value={this.state.password} onBlur={e => this.validatePassword(e)} />
-                                <FormFeedback>{this.state.passwordValidationError}</FormFeedback>
+                                <Input type="password" name="password" id="passwordId" invalid={(!this.state.passwordIsValid && this.state.passwordValidationError.length != 0) ? true : false} valid={this.state.passwordIsValid} onChange={e => this.changeValue(e)} value={this.state.password} onBlur={e => this.validatePassword(e)} />
+                                <FormFeedback>
+                                    <ul>
+                                        {this.state.passwordValidationError.map(error => <li>{error}</li>)}
+                                    </ul>
+                                </FormFeedback>
                             </FormGroup>
                         </Col>
                     </Row>
