@@ -57,7 +57,7 @@ export class RegexValidationForm extends Component {
     }
 
     validateFirstName(e) {
-        let validFirstName = this.state.firstName.match(/^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*$/)
+        let validFirstName = this.state.firstName.match(/^[A-Ża-ż][A-Ża-ż\'\-]+([\ A-Ża-ż][A-Ża-ż\'\-]+)*$/)
         if (validFirstName == null) {
             this.setState({
                 firstNameIsValid: false,
@@ -73,7 +73,7 @@ export class RegexValidationForm extends Component {
     }
 
     validateLastName(e) {
-        let validLastName = this.state.lastName.match(/^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*$/)
+        let validLastName = this.state.lastName.match(/^[A-Ża-ż][A-Ża-ż\'\-]+([\ A-Ża-ż][A-Ża-ż\'\-]+)*$/)
         if (validLastName == null) {
             this.setState({
                 lastNameIsValid: false,
@@ -98,7 +98,7 @@ export class RegexValidationForm extends Component {
             passwordError.push("Hasło musi mieć długość minimum 8 znaków. \n");
         }
 
-        let validPasswordOneUpperCharacter = this.state.password.match(/(?=.*[A-Z])/)
+        let validPasswordOneUpperCharacter = this.state.password.match(/(?=.*[A-Ż])/)
 
         if (validPasswordOneUpperCharacter == null) {
             passwordError.push("Hasło musi zawierać co najmniej jedną dużą literę. \n");
