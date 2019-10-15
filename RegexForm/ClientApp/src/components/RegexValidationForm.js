@@ -29,6 +29,10 @@ export class RegexValidationForm extends Component {
             lastNameIsValid: false,
             dateIsValid: false,
 
+            firstNameLastName: "",
+            firstNameLastNameValidationError: [],
+            firstNameLastNameIsValid: false,
+
         }
     }
 
@@ -39,6 +43,7 @@ export class RegexValidationForm extends Component {
     }
 
     validateEmail(e) {
+        // regex experimental: ^(?<nazwa_uzytkownika>[A-Za-z0-9\.\-\_]+)@(?<przedomena>[A-Za-z0-9\.\_\-]+\.)+(?<com>[A-Za-z0-9]+)$
         let validEmail = this.state.email.match(/^(([^<>()\[\]\\.,;:\s@.*"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
 
         if (validEmail == null) {
@@ -84,6 +89,22 @@ export class RegexValidationForm extends Component {
             this.setState({
                 lastNameIsValid: true,
                 lastNameValidationError: []
+            });
+        }
+    }
+
+    validateFirstNameLastName(e) {
+        let validFirstNameLastName = this.state.firstNameLastName.match(/^([A-Z][a-zażółćęśąźńż]+) ([A-Z][a-zażółćęśąźńż]+ )?([A-Z][a-zażółćęśąźńż]+(-[A-Z][a-zażółćęśąźńż]+)?)$/)
+        if (validFirstNameLastName == null) {
+            this.setState({
+                firstNameLastNameIsValid: false,
+                firstNameLastNameValidationError: "Wprowadzono imię wraz z nazwiskiem w niepoprawnym formacie."
+            });
+        }
+        else {
+            this.setState({
+                firstNameLastNameIsValid: true,
+                firstNameLastNameValidationError: []
             });
         }
     }
@@ -157,8 +178,9 @@ export class RegexValidationForm extends Component {
         if (
             this.state.emailIsValid &&
             this.state.passwordIsValid &&
-            this.state.firstNameIsValid &&
-            this.state.lastNameIsValid &&
+            //this.state.firstNameIsValid &&
+            //this.state.lastNameIsValid &&
+            this.state.firstNameLastNameIsValid &&
             this.state.dateIsValid) {
             NotificationManager.success('Dodano rezerwację stolika');
         }
@@ -178,25 +200,13 @@ export class RegexValidationForm extends Component {
                         <Label for="email">Adres email</Label>
                         <Input name="email" id="emailId" invalid={(!this.state.emailIsValid && this.state.emailValidationError.length != 0) ? true : false} valid={this.state.emailIsValid} onChange={e => this.changeValue(e)} value={this.state.email} onBlur={e => this.validateEmail(e)} />
                         <FormFeedback>{this.state.emailValidationError}</FormFeedback>
+                    </FormGroup>    
+
+                    <FormGroup className="formGroup">
+                        <Label for="firstNameLastName">Imię i nazwisko</Label>
+                        <Input name="firstNameLastName" id="firstNameLastNameId" invalid={(!this.state.firstNameLastNameIsValid && this.state.firstNameLastNameValidationError.length != 0) ? true : false} valid={this.state.firstNameLastNameIsValid} onChange={e => this.changeValue(e)} value={this.state.firstNameLastName} onBlur={e => this.validateFirstNameLastName(e)} />
+                        <FormFeedback>{this.state.firstNameLastNameValidationError}</FormFeedback>
                     </FormGroup>
-
-                    <Row form>
-                        <Col md={6}>
-                            <FormGroup className="formGroup">
-                                <Label for="firstName">Imię</Label>
-                                <Input type="string" name="firstName" id="firstNameId" invalid={(!this.state.firstNameIsValid && this.state.firstNameValidationError.length != 0) ? true : false} valid={this.state.firstNameIsValid} onChange={e => this.changeValue(e)} value={this.state.firstName} onBlur={e => this.validateFirstName(e)} />
-                                <FormFeedback>{this.state.firstNameValidationError}</FormFeedback>
-                            </FormGroup>
-                        </Col>
-
-                        <Col md={6}>
-                            <FormGroup className="formGroup">
-                                <Label for="lastName">Nazwisko</Label>
-                                <Input type="string" name="lastName" id="lastNameId" invalid={(!this.state.lastNameIsValid && this.state.lastNameValidationError.length != 0) ? true : false} valid={this.state.lastNameIsValid} onChange={e => this.changeValue(e)} value={this.state.lastName} onBlur={e => this.validateLastName(e)} />
-                                <FormFeedback>{this.state.lastNameValidationError}</FormFeedback>
-                            </FormGroup>
-                        </Col>
-                    </Row>
 
                     <FormGroup className="formGroup">
                         <Label for="date">Data rezerwacji</Label>
@@ -232,3 +242,20 @@ export class RegexValidationForm extends Component {
 }
 
 
+//<Row form>
+//    <Col md={6}>
+//        <FormGroup className="formGroup">
+//            <Label for="firstName">Imię</Label>
+//            <Input type="string" name="firstName" id="firstNameId" invalid={(!this.state.firstNameIsValid && this.state.firstNameValidationError.length != 0) ? true : false} valid={this.state.firstNameIsValid} onChange={e => this.changeValue(e)} value={this.state.firstName} onBlur={e => this.validateFirstName(e)} />
+//            <FormFeedback>{this.state.firstNameValidationError}</FormFeedback>
+//        </FormGroup>
+//    </Col>
+
+//    <Col md={6}>
+//        <FormGroup className="formGroup">
+//            <Label for="lastName">Nazwisko</Label>
+//            <Input type="string" name="lastName" id="lastNameId" invalid={(!this.state.lastNameIsValid && this.state.lastNameValidationError.length != 0) ? true : false} valid={this.state.lastNameIsValid} onChange={e => this.changeValue(e)} value={this.state.lastName} onBlur={e => this.validateLastName(e)} />
+//            <FormFeedback>{this.state.lastNameValidationError}</FormFeedback>
+//        </FormGroup>
+//    </Col>
+//</Row>
