@@ -1,4 +1,5 @@
 ﻿using FileLineRegexRecognizer.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -28,7 +29,7 @@ namespace FileLineRegexRecognizer
 
         static void Main(string[] args)
         {
-            string url = @"C:\Users\user\Documents\Visual Studio 2017\Projects\Translators\FileLineRegexRecognizer\File\mixedFormats.txt";
+            string url = @"C:\Users\Łukasz\Documents\Visual Studio 2017\Projects\Translators\FileLineRegexRecognizer\File\mixedFormats.txt";
 
             //^(?<Integer>\d+) {1,31}(?<String>.*) {1,31}(?<Date>(([1-2]\d{3})\-([0]\d|[1][0-2])\-([[0-2]\d|[3][0-1]))){1,31}
             string fixedSizeRegex = "^(?<Integer>\\d+) {1,31}(?<String>.*) {1,31}(?<Date>(([1-2]\\d{3})\\-([0]\\d|[1][0-2])\\-([[0-2]\\d|[3][0-1]))){1,31}";
@@ -45,6 +46,7 @@ namespace FileLineRegexRecognizer
             using (StreamReader sr = new StreamReader(url))
             {
                 string singleLine;
+                Console.WriteLine("Original lines:");
 
                 while ((singleLine = sr.ReadLine()) != null)
                 {
@@ -76,6 +78,12 @@ namespace FileLineRegexRecognizer
 
                 sr.Close();
             }
+
+            string json = JsonConvert.SerializeObject(listOfObjects, Formatting.Indented);
+
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine("JSON");
+            Console.WriteLine(json);
 
             Console.ReadLine();
         }

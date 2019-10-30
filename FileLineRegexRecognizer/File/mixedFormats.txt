@@ -1,4 +1,4 @@
 123, Testowy string, 2012-02-12
-{ "Integer": 123, "String": "test", "Date": "2012-02-12" }
-<root><Integer>123</Integer><String>test</String><Date>2012-02-12</Date></root>
-123                              Testowy                        2012-02-12                      
+{ "Integer": 456789, "String": "fajny testowy string", "Date": "2015-01-11" }
+<root><Integer>20002</Integer><String>translatory</String><Date>1680-02-02</Date></root>
+999                              Testowy                        2003-02-12                      
