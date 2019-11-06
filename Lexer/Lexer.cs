@@ -138,34 +138,6 @@ namespace Lexer
             }
         }
 
-        //public AnalyzeResult W(string stream, int startPosition)
-        //{
-        //    AnalyzeResult result = new AnalyzeResult();
-        //    AnalyzeResult additionalResult = new AnalyzeResult();
-
-        //    if ("123456789".Contains(stream[startPosition]) && (additionalResult = W(stream, startPosition + 1)).Result)
-        //    {
-        //        result.Result = true;
-        //        result.Token = new Token(TokenType.Liczba, additionalResult.Token.Argument, startPosition);
-
-        //        return result;
-        //    }
-        //    else if ("123456789".Contains(stream[startPosition]))
-        //    {
-        //        result.Result = true;
-               
-        //        result.Token = new Token(TokenType.Liczba, stream[startPosition].ToString(), startPosition);
-
-        //        return result;
-        //    }
-        //    else
-        //    {
-        //        result.Result = false;
-
-        //        return result;
-        //    }
-        //}
-
         public bool Analyze(string query)
         {
             int i = 0;

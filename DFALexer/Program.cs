@@ -6,7 +6,7 @@ namespace DFALexer
     {
         static void Main(string[] args)
         {
-            string phrase = "1 +  - ( - -200 24 53";
+            string phrase = "1 +  - ( - -200 24 53 01";
 
             Lexer lex = new Lexer(phrase);
             var tokens = lex.StartLexicalAnalysis();

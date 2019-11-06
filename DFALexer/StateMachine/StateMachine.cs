@@ -19,6 +19,8 @@ namespace DFALexer
             s0, // Stan początkowy
             s1, // Stan końcowy akceptujący
             s2, // Error - stan nieakceptujący
+
+            s01, // Stan pośredni akceptujący
         }
 
         public Q q; // stan bieżący
