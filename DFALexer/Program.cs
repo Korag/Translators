@@ -17,3 +17,8 @@ namespace DFALexer
         }
     }
 }
+
+
+Najpierw wyrazenie
+    Wyrazenie wywoluje składnik  i Wyrażenie 1
+        

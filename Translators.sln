@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegexForm", "RegexForm\Rege
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileLineRegexRecognizer", "FileLineRegexRecognizer\FileLineRegexRecognizer.csproj", "{7BAA5FC6-A489-4522-8FFD-F73006574A32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lexer", "Lexer\Lexer.csproj", "{20DFC489-F5AD-4464-887D-11C8E5928A3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lexer", "Lexer\Lexer.csproj", "{20DFC489-F5AD-4464-887D-11C8E5928A3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFALexer", "DFALexer\DFALexer.csproj", "{EFE841AA-D398-4C57-9F72-5DA96F85B1C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFALexer", "DFALexer\DFALexer.csproj", "{EFE841AA-D398-4C57-9F72-5DA96F85B1C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csproj", "{D42C40D2-564B-4259-89FE-806647C9794C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EFE841AA-D398-4C57-9F72-5DA96F85B1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFE841AA-D398-4C57-9F72-5DA96F85B1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFE841AA-D398-4C57-9F72-5DA96F85B1C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D42C40D2-564B-4259-89FE-806647C9794C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D42C40D2-564B-4259-89FE-806647C9794C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D42C40D2-564B-4259-89FE-806647C9794C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D42C40D2-564B-4259-89FE-806647C9794C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

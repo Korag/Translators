@@ -12,7 +12,7 @@ namespace Lexer
 
             if (l.Analyze(query))
             {
-                Console.WriteLine("Zakończonoe analizę leksykalną z sukcesem");
+                Console.WriteLine("Zakończono analizę leksykalną z sukcesem");
                 Console.WriteLine("Rozpoznane leksemy: ");
 
                 foreach (var token in l.TokenList)

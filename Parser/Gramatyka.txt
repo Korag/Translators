@@ -1,0 +1,53 @@
+﻿gramatyka <T,N,S,P>
+T = {L,+,-,/,*,(,)}
+N = {W,S,C}
+S = {W}
+P:
+W → W+S 
+W → W-S 
+W → S
+S → S*C
+S → S/C
+S → C
+C → L
+C → (W)
+
+Pomijamy białe znaki
+
+W - wyrażenie
+S - składnik
+C - czynnik
+
+Sposób przekształcenia (eliminacja rekurencji lewostronnej)
+
+Przed:
+w → W + S
+W → W - S
+W → S
+----------
+Po:
+W → SW'
+W' → Epsilon (symbol pusty)
+w' → +SW'
+W' → -SW'
+
+-------------------------------------------------------------
+Gramatyka po przekształceniu
+gramatyka <T,N,S,P>
+T = {L,+,-,/,*,(,)}
+N = {W,S,C,W',S'}
+S = {W}
+
+P:
+W → SW'
+W' → Epsilon (symbol pusty)
+w' → +SW'
+W' → -SW'
+
+S → CS'
+S' → Epsilon
+S' → *CS'
+S' → /CS'
+
+C → L
+C → (W)
