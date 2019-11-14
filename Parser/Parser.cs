@@ -5,21 +5,43 @@ using DFALexer;
 
 namespace Parser
 {
-    class Parser
+    public class Parser
     {
-        public Lexer l { get; set; } // lekser ma zawierać wypełnioną tablicę symboli
+        public Lexer Lex { get; set; }
         public int Index { get; set; }
 
 
-        public Parser(Lexer l)
+        public Parser(Lexer lex)
         {
-            this.l = l;
+            this.Lex = lex;
             this.Index = 0;
         }
 
         public bool LoadSymbol(Token token)
         {
-            if (this.l.TokenList[this.Index].Type == token.Type && this.l.TokenList[Index].Argument == token.Argument)
+            if (this.Index == this.Lex.TokenList.Count)
+            {
+                return false;
+            }
+            else if (this.Lex.TokenList[this.Index].Type == token.Type)
+            {
+                this.Index++;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool LoadSymbolWithConcreteArgument(Token token)
+        {
+            if (this.Index == this.Lex.TokenList.Count)
+            {
+                return false;
+            }
+            else if (this.Lex.TokenList[this.Index].Type == token.Type && this.Lex.TokenList[Index].Argument == token.Argument)
             {
                 this.Index++;
 
@@ -48,12 +70,56 @@ namespace Parser
 
         public bool C()
         {
-            if (this.LoadSymbol(new Token(TokenType.Nawias, "(", 0)));
+            if (this.LoadSymbol(new Token(TokenType.BialyZnak)))
             {
-                W() && this.LoadSymbol(new Token(TokenType.Nawias, ")", 0));
+                return C();
             }
+            if (this.LoadSymbolWithConcreteArgument(new Token(TokenType.Nawias, "(", 0)))
+            {
+                return W() && this.LoadSymbolWithConcreteArgument(new Token(TokenType.Nawias, ")", 0));
+            }
+            else if (this.LoadSymbol(new Token(TokenType.Liczba)))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool WI()
+        {
+            if (this.LoadSymbol(new Token(TokenType.BialyZnak)))
+            {
+                return WI();
+            }
+            else if (this.LoadSymbolWithConcreteArgument(new Token(TokenType.Operator, "+", 0)))
+            {
+                return S() && WI();
+            }
+            else if (this.LoadSymbolWithConcreteArgument(new Token(TokenType.Operator, "-", 0)))
+            {
+                return S() && WI();
+            }
+
+            return true;
+        }
+
+        public bool SI()
+        {
+            if (this.LoadSymbol(new Token(TokenType.BialyZnak)))
+            {
+                return SI();
+            }
+            else if (this.LoadSymbolWithConcreteArgument(new Token(TokenType.Operator, "*", 0)))
+            {
+                return C() && SI();
+            }
+            else if (this.LoadSymbolWithConcreteArgument(new Token(TokenType.Operator, "/", 0)))
+            {
+                return C() && SI();
+            }
+
+            return true;
         }
     }
 }
 
-obliczyć wynik i przekształcić na formę polską

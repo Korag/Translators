@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DFALexer
 {
-    static class ConsoleHelper
+    public static class ConsoleHelper
     {
         public static void ResetConsoleStyle()
         {

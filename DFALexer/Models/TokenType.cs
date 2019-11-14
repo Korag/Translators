@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DFALexer
 {
-    class TokenType
+    public class TokenType
     {
         public const string Nawias = "Nawias";
         public const string BialyZnak = "BialyZnak";

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DFALexer
 {
-    class Lexer
+    public class Lexer
     {
         public List<Token> TokenList { get; set; } = new List<Token>();
 
@@ -51,13 +51,12 @@ namespace DFALexer
 
                 if (results.Count() != 0)
                 {
-                    Token token = new Token
-                    {
-                        Argument = results.FirstOrDefault().Match,
-                        Index = this.GlobalIterator,
-                        Type = results.FirstOrDefault().GetTypeOfMachineGeneratedToken()
-                    };
-
+                    Token token = new Token(
+                        results.FirstOrDefault().GetTypeOfMachineGeneratedToken(),
+                        results.FirstOrDefault().Match,
+                        this.GlobalIterator
+                        );
+    
                     TokenList.Add(token);
 
                     this.GlobalIterator += token.Argument.Length;

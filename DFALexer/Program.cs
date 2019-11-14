@@ -2,7 +2,7 @@
 
 namespace DFALexer
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -17,8 +17,3 @@ namespace DFALexer
         }
     }
 }
-
-
-Najpierw wyrazenie
-    Wyrazenie wywoluje składnik  i Wyrażenie 1
-        

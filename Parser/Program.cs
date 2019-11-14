@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DFALexer;
+using System;
 
 namespace Parser
 {
@@ -6,7 +7,19 @@ namespace Parser
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string phrase = "1 + 3 * 5";
+
+            Lexer lex = new Lexer(phrase);
+            var tokens = lex.StartLexicalAnalysis();
+
+            ConsoleHelper.DisplayTokenListOnConsole(tokens);
+
+            Parser pars = new Parser(lex);
+            var parserResult = pars.Analyze();
+
+            Console.WriteLine(parserResult);
+
+            Console.ReadLine();
         }
     }
 }
