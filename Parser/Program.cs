@@ -17,8 +17,6 @@ namespace Parser
             Parser pars = new Parser(lex);
             var parserResult = pars.Analyze();
 
-            Console.WriteLine(parserResult);
-
             Console.ReadLine();
         }
     }
