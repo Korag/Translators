@@ -8,4 +8,4 @@ The repository consists of several projects, all of which are related to the iss
 * DFALexer -> lexer based on DFA (Deterministic finite automaton)
 * Parser -> parser, which with the help of DFALexer converts the inputted notation into RPN (reverse Polish notation)
 
-![alt text](https://github.com/Korag/DocumentationImages/blob/master/Translators/Translators_1.png "Regex form validation")
+![alt text](https://github.com/Korag/DocumentationImages/blob/master/Translators/Translators_1.PNG "Regex form validation")
